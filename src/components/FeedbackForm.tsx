@@ -1558,6 +1558,8 @@ const translations = {
     submit: "Submit Feedback",
     submitting: "Submitting...",
     successTitle: "Thank you for your feedback!",
+    thankYouTitle: "Thank you for",
+    thankYouHighlight: "your feedback!",
     successText:
       "We truly appreciate you taking the time to share your experience. Your feedback helps us improve and serve you better.",
     close: "You may now safely close this page.",
@@ -1596,6 +1598,8 @@ const translations = {
     submit: "Feedback absenden",
     submitting: "Wird gesendet...",
     successTitle: "Vielen Dank für Ihr Feedback!",
+    thankYouTitle: "Vielen Dank für",
+    thankYouHighlight: "Ihr Feedback!",
     successText:
       "Vielen Dank, dass Sie sich die Zeit genommen haben. Ihr Feedback hilft uns, besser zu werden.",
     close: "Sie können diese Seite jetzt schließen.",
@@ -1681,10 +1685,19 @@ export default function FeedbackForm() {
             <Check className="w-10 h-10 text-primary-foreground" strokeWidth={3} />
           
           </motion.div>
-          
-          <h2 className="text-2xl md:text-3xl font-extralight text-center mb-3 font-serif text-[#4b2e2b]">
-            {t.successTitle}
-          </h2>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <h2 className="text-2xl md:text-3xl font-extralight-bold text-foreground mb-1">
+              {t.thankYouTitle}
+            </h2>
+            <h2 className="text-2xl md:text-3xl font-extralight-bold text-primary mb-6">
+              {t.thankYouHighlight}
+            </h2>
+          </motion.div>
+
           <p className="text-muted-foreground mb-6">
             {t.successText}
           </p>
@@ -1776,11 +1789,14 @@ export default function FeedbackForm() {
                 </button>
               </div>
 
-              <div className="flex justify-center gap-2 text-xs text-muted-foreground">
+              {/* Anonymous Note */}
+              <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                 <Lock className="w-4 h-4" />
-                {t.anonymous} <strong>{t.anonymousBold}</strong>{" "}
-                {t.anonymousEnd}
+                <span>
+                  {t.anonymous} <strong>{t.anonymousBold}</strong> {t.anonymousEnd}
+                </span>
               </div>
+
             </motion.div>
           ) : (
             <motion.div
@@ -1882,6 +1898,13 @@ export default function FeedbackForm() {
               >
                 {isSubmitting ? t.submitting : t.submit}
               </button>
+              {/* Anonymous Note */}
+              <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mt-4">
+                <Lock className="w-4 h-4" />
+                <span>
+                  {t.anonymous} <strong>{t.anonymousBold}</strong> {t.anonymousEnd}
+                </span>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
