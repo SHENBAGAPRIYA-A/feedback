@@ -1518,6 +1518,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ThumbsUp,
+  Calendar,
+  Clock,
+  Users,
+  Smile,
+  CreditCard,
+  Monitor,
   ThumbsDown,
   Send,
   Globe,
@@ -1535,6 +1541,23 @@ type FeedbackType = "like" | "dislike" | null;
 
 const GOOGLE_REVIEW_URL = "https://www.google.com/maps/place/Frau+Dr.+medic.+stom.+(IMF+Temeschburg)+Gerlinde+Dutu/@49.1216781,8.5912111,570m/data=!3m1!1e3!4m8!3m7!1s0x4797a15bfc7b4f6d:0xe179feea0590dc34!8m2!3d49.1216781!4d8.5912111!9m1!1b1!16s%2Fg%2F1vspqg0q?entry=ttu&g_ep=EgoyMDI2MDIxNi4wIKXMDSoASAFQAw%3D%3D";
 
+const improvementIcons = {
+  // English
+  "Issues with booking appointment": Calendar,
+  "Long waiting time": Clock,
+  "Staff friendliness or care": Smile,
+  "Quality of treatment": Users,
+  "Billing or payment issues": CreditCard,
+  "Online/digital process": Monitor,
+
+  // German
+  "Probleme bei der Terminbuchung": Calendar,
+  "Lange Wartezeit": Clock,
+  "Freundlichkeit oder Fürsorge des Personals": Smile,
+  "Qualität der Behandlung": Users,
+  "Abrechnungs- oder Zahlungsprobleme": CreditCard,
+  "Online-/digitaler Prozess": Monitor,
+};
 const translations = {
   en: {
     title: "How was your experience?",
@@ -1566,7 +1589,7 @@ const translations = {
     error: "Please select at least one improvement area",
 
     checkboxes: [
-      "Difficulties booking an appointment",
+      "Issues with booking appointment",
       "Long waiting time",
       "Staff friendliness or care",
       "Quality of treatment",
@@ -1606,7 +1629,7 @@ const translations = {
     error: "Bitte wählen Sie mindestens einen Verbesserungsbereich",
 
     checkboxes: [
-      "Schwierigkeiten bei der Terminbuchung",
+      "Probleme bei der Terminbuchung",
       "Lange Wartezeit",
       "Freundlichkeit oder Fürsorge des Personals",
       "Qualität der Behandlung",
@@ -1846,7 +1869,7 @@ export default function FeedbackForm() {
               <p className="text-sm font-medium text-foreground text-left mb-2">
                   {t.improve}
                 </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+              {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                 {t.checkboxes.map((item, index) => (
                   <motion.label
                     key={index}
@@ -1876,7 +1899,44 @@ export default function FeedbackForm() {
                     <span className="text-sm text-foreground leading-tight">{item}</span>
                   </motion.label>
                 ))}
-              </div>
+              </div> */}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+  {t.checkboxes.map((item, index) => {
+    const Icon = improvementIcons[item as keyof typeof improvementIcons];
+    const selected = improvements.includes(item);
+
+    return (
+      <motion.div
+        key={index}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={() => toggleImprovement(item)}
+        className={`cursor-pointer rounded-2xl p-4 border transition-all flex items-center gap-3
+          ${
+            selected
+              ? "bg-primary/10 border-primary shadow-md"
+              : "bg-white hover:bg-muted border-border"
+          }`}
+      >
+        <div
+          className={`w-10 h-10 rounded-xl flex items-center justify-center transition
+            ${
+              selected
+                ? "bg-primary text-primary-foreground"
+                : "bg-muted text-primary"
+            }`}
+        >
+          {Icon && <Icon className="w-5 h-5" />}
+        </div>
+
+        <span className="text-sm font-medium text-foreground">
+          {item}
+        </span>
+      </motion.div>
+    );
+  })}
+</div>
 
 
               <p className="text-sm font-semibold mb-2">
