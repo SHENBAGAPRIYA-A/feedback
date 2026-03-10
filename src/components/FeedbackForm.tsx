@@ -1539,7 +1539,9 @@ import dental from "@/public/assets/dental.png"
 type Language = "en" | "de";
 type FeedbackType = "like" | "dislike" | null;
 
+
 const GOOGLE_REVIEW_URL = "https://www.google.com/maps/place/Dietgard+Horvath/@49.1226463,8.5876531,570m/data=!3m2!1e3!5s0x4797a15968902e35:0xf8f98049015b9d56!4m8!3m7!1s0x4797a159683d5f01:0xf4809c0f684ecdde!8m2!3d49.1226463!4d8.590228!9m1!1b1!16s%2Fg%2F11f71mrg51?entry=ttu&g_ep=EgoyMDI2MDMwNS4wIKXMDSoASAFQAw%3D%3D";
+//const GOOGLE_REVIEW_URL = "https://www.google.com/maps/place/Frau+Dr.+medic.+stom.+(IMF+Temeschburg)+Gerlinde+Dutu/@49.1216781,8.5912111,570m/data=!3m1!1e3!4m8!3m7!1s0x4797a15bfc7b4f6d:0xe179feea0590dc34!8m2!3d49.1216781!4d8.5912111!9m1!1b1!16s%2Fg%2F1vspqg0q?entry=ttu&g_ep=EgoyMDI2MDIxNi4wIKXMDSoASAFQAw%3D%3D";
 
 const improvementIcons = {
   // English
@@ -1767,9 +1769,6 @@ export default function FeedbackForm() {
             {lang === "en" ? "DE" : "EN"}
           </button>
   </div>
-  
-        
-
         <AnimatePresence mode="wait">
           {feedbackType !== "dislike" ? (
             <motion.div
@@ -1901,7 +1900,10 @@ export default function FeedbackForm() {
                 ))}
               </div> */}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+
+              
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
   {t.checkboxes.map((item, index) => {
     const Icon = improvementIcons[item as keyof typeof improvementIcons];
     const selected = improvements.includes(item);
@@ -1919,7 +1921,7 @@ export default function FeedbackForm() {
               : "bg-white hover:bg-muted border-border"
           }`}
       >
-       
+
         <div
           className={`w-10 h-10 rounded-xl flex items-center justify-center transition
             ${
@@ -1948,7 +1950,7 @@ export default function FeedbackForm() {
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 className="w-full p-3 rounded-xl border mb-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#1CA7B6]  focus:border-[#1CA7B6]"
-                rows={3}
+                rows={2}
                 placeholder={t.commentPlaceholder}
               />
 
